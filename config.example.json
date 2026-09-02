@@ -1,0 +1,54 @@
+{
+  "name": "asset-diary-sample",
+  "timezone": "Asia/Shanghai",
+  "baseCurrency": "USD",
+  "ledgerPath": "data/sample_snapshots.jsonl",
+  "excelPath": "outputs/asset_diary_sample.xlsx",
+  "riskRules": {
+    "stable": { "label": "稳定低风险资产", "color": "#00A3E0" },
+    "fdvGte10B": { "label": "高风险资产", "color": "#F59E0B", "minFdvUsd": 10000000000 },
+    "fdvGte1B": { "label": "较高风险资产", "color": "#92400E", "minFdvUsd": 1000000000, "maxFdvUsd": 10000000000 },
+    "fdvLt1B": { "label": "极高风险资产", "color": "#DC2626", "maxFdvUsd": 1000000000 }
+  },
+  "chains": {},
+  "wallets": [],
+  "trackedTokens": [],
+  "manualHoldings": [
+    {
+      "sourceId": "demo_wallet",
+      "sourceLabel": "Demo wallet",
+      "venue": "manual",
+      "symbol": "USDC",
+      "quantity": 1000,
+      "priceUsd": 1,
+      "fdvUsd": null,
+      "stable": true
+    },
+    {
+      "sourceId": "demo_wallet",
+      "sourceLabel": "Demo wallet",
+      "venue": "manual",
+      "symbol": "OPG",
+      "quantity": 1000,
+      "priceUsd": 0.1065,
+      "fdvUsd": 5325000,
+      "stable": false
+    },
+    {
+      "sourceId": "demo_wallet",
+      "sourceLabel": "Demo wallet",
+      "venue": "manual",
+      "symbol": "BNB",
+      "quantity": 0.4,
+      "priceUsd": 615,
+      "fdvUsd": 91000000000,
+      "stable": false
+    }
+  ],
+  "exchanges": [],
+  "telegram": {
+    "enabled": false,
+    "botTokenEnv": "ASSET_DIARY_TELEGRAM_BOT_TOKEN",
+    "chatIdEnv": "ASSET_DIARY_TELEGRAM_CHAT_ID"
+  }
+}

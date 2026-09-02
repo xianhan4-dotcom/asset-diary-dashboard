@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="本地只读虚拟资产监控 Dashboard" />
+    <title>Asset Diary Dashboard</title>
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <div>
+        <p class="product-label">ASSET DIARY</p>
+        <h1>虚拟资产监控</h1>
+      </div>
+      <div class="topbar-actions">
+        <label class="field">
+          <span>快照日期</span>
+          <select id="dateSelect" aria-label="选择快照日期"></select>
+        </label>
+        <span id="dataStatus" class="status" role="status">读取中</span>
+      </div>
+    </header>
+
+    <main id="dashboard" class="shell" hidden>
+      <section class="kpi-grid" aria-label="资产摘要">
+        <article class="kpi kpi-primary">
+          <span>总资产</span>
+          <strong id="totalUsd">$0.00</strong>
+          <small id="snapshotTime">--</small>
+        </article>
+        <article class="kpi">
+          <span>日变动</span>
+          <strong id="dailyChange">--</strong>
+          <small id="dailyBasis">较上一快照</small>
+        </article>
+        <article class="kpi">
+          <span>周变动</span>
+          <strong id="weeklyChange">--</strong>
+          <small id="weeklyBasis">较 7 日前</small>
+        </article>
+        <article class="kpi">
+          <span>月变动</span>
+          <strong id="monthlyChange">--</strong>
+          <small id="monthlyBasis">较 30 日前</small>
+        </article>
+      </section>
+
+      <section class="main-grid">
+        <article class="panel trend-panel">
+          <div class="panel-heading">
+            <div>
+              <h2>资产历史</h2>
+              <p>每日 USD 快照</p>
+            </div>
+            <div id="trendDelta" class="metric-note"></div>
+          </div>
+          <canvas id="trendChart" aria-label="总资产历史折线图"></canvas>
+        </article>
+
+        <article class="panel allocation-panel">
+          <div class="panel-heading">
+            <div>
+              <h2>风险分布</h2>
+              <p>按 FDV 与稳定币规则分类</p>
+            </div>
+          </div>
+          <div class="allocation-body">
+            <div class="donut-wrap">
+              <canvas id="allocationChart" aria-label="风险资产分布环形图"></canvas>
+              <div class="donut-center"><strong id="assetCount">0</strong><span>资产</span></div>
+            </div>
+            <div id="allocationLegend" class="legend"></div>
+          </div>
+        </article>
+      </section>
+
+      <section class="panel source-panel">
+        <div class="panel-heading">
+          <div>
+            <h2>账户分布</h2>
+            <p>按钱包与交易所来源聚合</p>
+          </div>
+        </div>
+        <div id="sourceBars" class="source-bars"></div>
+      </section>
+
+      <section class="panel holdings-panel">
+        <div class="panel-heading holdings-heading">
+          <div>
+            <h2>持仓明细</h2>
+            <p>数量、估值、FDV 与数据来源</p>
+          </div>
+          <div class="filters">
+            <label class="field compact">
+              <span>账户</span>
+              <select id="sourceFilter" aria-label="筛选账户"></select>
+            </label>
+            <label class="search-field">
+              <span class="sr-only">搜索代币</span>
+              <input id="tokenSearch" type="search" placeholder="搜索代币" autocomplete="off" />
+            </label>
+          </div>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>资产</th>
+                <th>账户</th>
+                <th class="number">数量</th>
+                <th class="number">价格</th>
+                <th class="number">USD 市值</th>
+                <th>风险级别</th>
+                <th>价格来源</th>
+              </tr>
+            </thead>
+            <tbody id="holdingsBody"></tbody>
+          </table>
+          <div id="emptyHoldings" class="empty" hidden>当前筛选条件下没有资产。</div>
+        </div>
+      </section>
+    </main>
+
+    <section id="errorState" class="state-card" hidden>
+      <h2>无法读取快照</h2>
+      <p id="errorMessage"></p>
+      <button id="retryButton" type="button">重新加载</button>
+    </section>
+
+    <script type="module" src="./app.js"></script>
+  </body>
+</html>
